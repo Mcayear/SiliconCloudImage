@@ -1,4 +1,4 @@
-# SiliconCloud Base64 图像代理网关
+# SiliconCloud Image 图像代理网关
 
 🖼️ 本项目为 SiliconFlow/SiliconCloud 的文生图 API 提供 b64_json 兼容层，解决原生接口仅返回图片 URL 的问题。[查看技术实现原理](#技术细节)
 
