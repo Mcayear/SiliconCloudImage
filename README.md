@@ -48,56 +48,34 @@ go build -ldflags="-s -w" -o sc-proxy
 
 ```
 
----
-
 ## 使用说明
 
 ### 请求示例
 
 ```bash
-
 curl -X POST http://localhost:3000/v1/images/generations \
-
   -H "Content-Type: application/json" \
-
   -H "Authorization: Bearer YOUR_API_KEY" \
-
   -d '{
-
     "model": "black-forest-labs/FLUX.1-schnell",
-
     "prompt": "A cyberpunk cat with neon glasses",
-
     "n": 2,
-
     "response_format": "b64_json" # 必须指定此项触发转换
-
   }'
-
 ```
 
 ### 成功响应
 
 ```json
-
 {
-
   "created": 1719501163,
-
   "data": [
-
     {
-
       "b64_json": "/9j/4AAQSkZJRgABAQ...", // 转换结果
-
       "revised_prompt": "A futuristic feline..."
-
     }
-
   ]
-
 }
-
 ```
 
 ### 错误处理
@@ -106,8 +84,6 @@ curl -X POST http://localhost:3000/v1/images/generations \
 |--------|-----------------------|--------------------------------------|
 | 400    | 请求参数错           | {"error": "Invalid JSON"}          |
 | 502    | 上游服务不可用        | {"error":"Upstream service error"} |
-
----
 
 ## 技术细节
 
@@ -142,12 +118,8 @@ sequenceDiagram
 ### 关键工具函数
 
 - 标头过滤: 使用安全截断算法处理敏感标头
-
 - 内存优化: 复用缓冲池减少 GC 压力 ([查看优化策略](#优化与性能))
-
 - 超时控制: 全局 15 秒超时熔断机制
-
----
 
 ## 优化与性能
 
@@ -155,32 +127,21 @@ sequenceDiagram
 
 | 实现方式         | 内存占用 (10并发) | 平均响应时间 | QPS  |
 |------------------|-------------------|--------------|------|
-| Golang 实现    | 120.61 MiB        | 820ms        | 47   |
-| Node.js 实现 | 135.80 MiB        | 1.2s         | 31   |
-
----
+| Golang 实现    | 91.58 MiB        | 820ms        | 47   |
+| Node.js 实现   | 135.80 MiB        | 1.2s         | 31   |
 
 ## 已测试模型
 
 当前仅验证 black-forest-labs/FLUX.1-schnell 模型的兼容性，建议调用参数如下：
 
 ```json
-
 {
-
   "model": "black-forest-labs/FLUX.1-schnell",
-
   "width": 1024,
-
   "height": 1024,
-
   "steps": 30
-
 }
-
 ```
-
----
 
 ## 路线图
 
@@ -189,8 +150,6 @@ sequenceDiagram
 - [ ] 添加 Prometheus 监控指标
 
 - [ ] 提供 Docker 镜像部署方式
-
----
 
 ## 贡献指南
 
